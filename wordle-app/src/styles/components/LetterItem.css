@@ -1,0 +1,11 @@
+
+.box{
+    color: black;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: min(13vw, 70px);
+    border-radius: 10px;
+}
+
+  
