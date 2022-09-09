@@ -15,8 +15,23 @@ function Game({handleStateProp}) {
     const [attempt, setAttempt] = useState(0)
 
     const [board, setBoard] = useState(boardData)
-  
-    const theWord = 'MONTE'
+    
+    const[theWord, setTheWord] = useState("")
+
+
+    useEffect(() => {
+      const wordList = ['ABRIL','PERRO','LLORA','GATOS','MACRI','APPLE','TERMO','FIONA','AUDIO', 'BRAZO','LIBRO'];
+      const a = wordList[Math.floor(Math.random() * wordList.length)];
+      setTheWord(a);
+
+    }, [])
+    
+
+    
+    console.log(theWord);
+
+
+
   
   
 
@@ -34,32 +49,32 @@ function Game({handleStateProp}) {
   
     function checkWords(argAttempt, argCorrectWord){
       const newBoard = [...board]
-      let boo;
+      let score = true;
 
       for (let pos = 0; pos < 5; pos++){
-        boo=false;
         if(board[argAttempt][pos].letter === argCorrectWord.charAt(pos)){
   
           newBoard[argAttempt][pos].color = 'green';
           setBoard(newBoard)
-          boo = true
-          boo = boo && true;
+          score = score && true;
         }
   
         else if(argCorrectWord.includes(board[argAttempt][pos].letter) && (board[argAttempt][pos].letter) !== ""){
           newBoard[argAttempt][pos].color = 'orange';
           setBoard(newBoard)
+          score = false;
         }
   
         else{
           newBoard[argAttempt][pos].color = 'red';
           setBoard(newBoard)
+          score = false;
         }
       }
-      if(boo){
+      if(score){
         setGameOver('WINNER');
       }else if(argAttempt>=4){
-        setGameOver('loosr');
+        setGameOver(`la palabra era ${argCorrectWord}`);
       }
     }
   
